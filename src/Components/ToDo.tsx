@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { IToDo, ToDoId, ToDoState } from "../atoms";
+import { createToDo, deleteToDo, updateToDo } from "../api";
+import { IToDo, refreshState, ToDoId, ToDoState } from "../atoms";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -46,7 +47,7 @@ const BtnBoxList = styled.div<{ btnState: string }>`
   height: 30px;
   display: flex;
   justify-content: ${(props) =>
-    props.btnState === "update" ? "flex-end" : "space-between"};
+    props.btnState === "detail" ? "space-between" : "flex-end"};
 `;
 
 const Button = styled.button`
@@ -61,6 +62,9 @@ const Button = styled.button`
 `;
 
 const StateBtn = styled(Button)<{ btnState: string }>`
+  :first-child {
+    margin-right: ${(props) => (props.btnState === "update" ? "5px" : "0")};
+  }
   :last-child {
     margin-left: ${(props) => (props.btnState === "update" ? "5px" : "0")};
   }
@@ -94,6 +98,69 @@ function ToDo(toDo: IToDo) {
     setTitle(toDoId.title);
     setContent(toDoId.content);
   };
+  const createToDos = () => {
+    if (title.length === 0) {
+      alert("제목을 입력하세요.");
+      return;
+    }
+    if (content.length === 0) {
+      alert("내용을 입력하세요.");
+      return;
+    }
+    const data = { title: title, content: content };
+    (async () => {
+      await createToDo(data);
+      alert("To Do가 등록되었습니다.");
+      setTitle("");
+      setContent("");
+      setRefresh(!refresh);
+    })();
+  };
+
+  const updateToDos = () => {
+    if (title.length === 0) {
+      alert("제목을 입력하세요.");
+      return;
+    }
+    if (content.length === 0) {
+      alert("내용을 입력하세요.");
+      return;
+    }
+    const data = { title: title, content: content };
+    (async () => {
+      await updateToDo(data, toDoId.id);
+      alert("To Do가 수정되었습니다.");
+      setToDoId({
+        title: title,
+        content: content,
+        id: toDoId.id,
+        createdAt: toDoId.createdAt,
+        updatedAt: toDoId.updatedAt,
+      });
+      setRefresh(!refresh);
+    })();
+  };
+
+  const deleteToDos = () => {
+    if (toDoId.id === "") {
+      alert("To Do를 선택하세요.");
+      return;
+    }
+    const data = { title: title, content: content };
+    (async () => {
+      await deleteToDo(toDoId.id);
+      alert("To Do가 삭제되었습니다.");
+      setRefresh(!refresh);
+      stateCreate();
+    })();
+  };
+
+  useEffect(() => {
+    setTitle(toDo.title);
+    setContent(toDo.content);
+  }, [toDo]);
+
+  const [refresh, setRefresh] = useRecoilState(refreshState);
   return (
     <Wrapper>
       <hr />
@@ -106,11 +173,29 @@ function ToDo(toDo: IToDo) {
       </h3>
       <ToDoCard>
         <h3>제목</h3>
-        <TitleInput type="textarea" value={toDo.title}></TitleInput>
+        <TitleInput
+          type="textarea"
+          value={title}
+          onChange={(event) => {
+            setTitle(event.target.value);
+          }}
+          readOnly={state === "detail" ? true : false}
+        ></TitleInput>
         <h3>내용</h3>
-        <ContentInput type="textarea" value={toDo.content}></ContentInput>
+        <ContentInput
+          type="textarea"
+          value={content}
+          onChange={(event) => {
+            setContent(event.target.value);
+          }}
+          readOnly={state === "detail" ? true : false}
+        ></ContentInput>
         <BtnBoxList btnState={state}>
-          {state === "create" && <StateBtn btnState={state}>추가</StateBtn>}
+          {state === "create" && (
+            <StateBtn btnState={state} onClick={() => createToDos()}>
+              추가
+            </StateBtn>
+          )}
           {state === "detail" && (
             <>
               <StateBtn btnState={state} onClick={() => stateCreate()}>
@@ -123,7 +208,12 @@ function ToDo(toDo: IToDo) {
           )}
           {state === "update" && (
             <BtnList>
-              <StateBtn btnState={state}>확인</StateBtn>
+              <StateBtn btnState={state} onClick={() => updateToDos()}>
+                확인
+              </StateBtn>
+              <StateBtn btnState={state} onClick={() => deleteToDos()}>
+                삭제
+              </StateBtn>
               <StateBtn btnState={state} onClick={() => stateDetail()}>
                 취소
               </StateBtn>

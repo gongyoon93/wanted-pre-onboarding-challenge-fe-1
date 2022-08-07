@@ -35,3 +35,8 @@ export const ToDoId = atom<IToDo>({
     updatedAt: new Date(),
   },
 });
+
+export const refreshState = atom<boolean>({
+  key: "refreshState",
+  default: false,
+});

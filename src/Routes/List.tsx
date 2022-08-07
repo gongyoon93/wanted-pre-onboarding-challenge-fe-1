@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { getToDos, getToDosId } from "../api";
-import { IToDo, IToDos, ToDoId, ToDoState } from "../atoms";
+import { IToDo, IToDos, refreshState, ToDoId, ToDoState } from "../atoms";
 import ToDo from "../Components/ToDo";
 
 const Container = styled.div`
@@ -125,12 +125,13 @@ function List() {
   //   }
   // );
   const [toDoList, setToDoList] = useState<IToDos>([]);
+  const refresh = useRecoilValue(refreshState);
   useEffect(() => {
     (async () => {
       const data = await getToDos();
       setToDoList(data.data.data);
     })();
-  }, []);
+  }, [refresh]);
   const setState = useSetRecoilState(ToDoState);
   const [toDoId, setToDoId] = useRecoilState(ToDoId);
   const stateDetail = (id: string) => {
