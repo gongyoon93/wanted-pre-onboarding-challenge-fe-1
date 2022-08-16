@@ -139,6 +139,7 @@ function List() {
     (async () => {
       const data = await getToDosId(id);
       setToDoId(data.data.data);
+      navigate(`/${id}/detail`);
     })();
   };
   return (
