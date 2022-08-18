@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { getToDos, getToDosId } from "../api";
-import { IToDo, IToDos, refreshState, ToDoId, ToDoState } from "../atoms";
+import { IToDo, IToDos, refreshState, ToDoId } from "../atoms";
 import ToDo from "../Components/ToDo";
 
 const Container = styled.div`
@@ -132,23 +132,17 @@ function List() {
       setToDoList(data.data.data);
     })();
   }, [refresh]);
-  const setState = useSetRecoilState(ToDoState);
-  const [toDoId, setToDoId] = useRecoilState(ToDoId);
-  const stateDetail = (id: string) => {
-    setState("detail");
-    (async () => {
-      const data = await getToDosId(id);
-      setToDoId(data.data.data);
-      navigate(`/${id}/detail`);
-    })();
-  };
+  const toDoId = useRecoilValue(ToDoId);
   return (
     <Container>
       <ToDoListWrapper>
         <Title>To Do List</Title>
         <ToDoList>
           {toDoList.map((toDo: IToDo) => (
-            <ToDoCard key={toDo.id} onClick={() => stateDetail(toDo.id)}>
+            <ToDoCard
+              key={toDo.id}
+              onClick={() => navigate(`/${toDo.id}/detail`)}
+            >
               <h3>제목</h3>
               <TitleBox>{toDo.title}</TitleBox>
               <h3>내용</h3>

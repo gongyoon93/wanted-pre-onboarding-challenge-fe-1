@@ -10,19 +10,15 @@ function App() {
   const AuthLoginPage = Auth(LoginPage, false);
   const AuthRegistPage = Auth(RegistPage, false);
 
-  const Main = () =>
-    useRoutes([
-      { path: "/", element: <AuthListPage /> },
-      { path: "/:id/detail", element: <AuthListPage /> },
-      { path: "/:id/update", element: <AuthListPage /> },
-    ]);
   return (
     <BrowserRouter>
       <Routes>
         <Route path={"/Regist"} element={<AuthRegistPage />} />
         <Route path={"/Login"} element={<AuthLoginPage />} />
+        <Route path={"/:id/update"} element={<AuthListPage />} />
+        <Route path={"/:id/detail"} element={<AuthListPage />} />
         <Route path={"/"} element={<AuthListPage />} />
-        <Main />
+        {/* <Main /> */}
       </Routes>
     </BrowserRouter>
   );

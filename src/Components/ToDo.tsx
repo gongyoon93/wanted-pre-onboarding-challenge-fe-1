@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import { createToDo, deleteToDo, updateToDo } from "../api";
+import { createToDo, deleteToDo, getToDosId, updateToDo } from "../api";
 import { IToDo, refreshState, ToDoId, ToDoState } from "../atoms";
 
 const Wrapper = styled.div`
@@ -76,28 +77,41 @@ const BtnList = styled.div`
 `;
 
 function ToDo(toDo: IToDo) {
+  const navigate = useNavigate();
   const [state, setState] = useRecoilState(ToDoState);
   const [toDoId, setToDoId] = useRecoilState(ToDoId);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const stateCreate = () => {
-    setState("create");
-    setToDoId({
-      title: "",
-      content: "",
-      id: "",
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    });
-  };
-  const stateUpdate = () => {
-    setState("update");
-  };
-  const stateDetail = () => {
-    setState("detail");
-    setTitle(toDoId.title);
-    setContent(toDoId.content);
-  };
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.pathname === "/") {
+      setState("create");
+      setToDoId({
+        title: "",
+        content: "",
+        id: "",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      });
+    } else if (location.pathname.split("/")[2] === "detail") {
+      setState("detail");
+      (async () => {
+        const data = await getToDosId(location.pathname.split("/")[1]);
+        setTitle(data.data.data.title);
+        setContent(data.data.data.content);
+        setToDoId(data.data.data);
+      })();
+    } else if (location.pathname.split("/")[2] === "update") {
+      setState("update");
+      (async () => {
+        const data = await getToDosId(location.pathname.split("/")[1]);
+        setTitle(data.data.data.title);
+        setContent(data.data.data.content);
+        setToDoId(data.data.data);
+      })();
+    }
+  }, [location.pathname]);
   const createToDos = () => {
     if (title.length === 0) {
       alert("제목을 입력하세요.");
@@ -151,7 +165,7 @@ function ToDo(toDo: IToDo) {
       await deleteToDo(toDoId.id);
       alert("To Do가 삭제되었습니다.");
       setRefresh(!refresh);
-      stateCreate();
+      setState("create");
     })();
   };
 
@@ -198,10 +212,13 @@ function ToDo(toDo: IToDo) {
           )}
           {state === "detail" && (
             <>
-              <StateBtn btnState={state} onClick={() => stateCreate()}>
+              <StateBtn btnState={state} onClick={() => navigate(`/`)}>
                 추가
               </StateBtn>
-              <StateBtn btnState={state} onClick={() => stateUpdate()}>
+              <StateBtn
+                btnState={state}
+                onClick={() => navigate(`/${toDoId.id}/update`)}
+              >
                 수정
               </StateBtn>
             </>
@@ -214,7 +231,10 @@ function ToDo(toDo: IToDo) {
               <StateBtn btnState={state} onClick={() => deleteToDos()}>
                 삭제
               </StateBtn>
-              <StateBtn btnState={state} onClick={() => stateDetail()}>
+              <StateBtn
+                btnState={state}
+                onClick={() => navigate(`/${toDoId.id}/detail`)}
+              >
                 취소
               </StateBtn>
             </BtnList>
