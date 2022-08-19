@@ -1,6 +1,6 @@
 <h1>최종 구현</h1>
-<hr>
 <h2>Auth</h2>
+
 ![녹화_2022_08_19_22_45_33_172](https://user-images.githubusercontent.com/94844343/185634254-2d014d43-a608-4042-9e2e-968258ea2627.gif)
 <h2>To Do<h2>
 ![녹화_2022_08_19_22_46_55_713](https://user-images.githubusercontent.com/94844343/185634276-492b3180-4a3f-4203-9e91-ec7de4bd9ecc.gif)
