@@ -1,11 +1,9 @@
-1.로그인/회원가입과 To Do List 구현
-2.hoc를 통한 auth 처리
-
-- wanted pre-onboarding assignment -
-
-목표
-1. react-query를 활용하여 서버상태 관리와 data fetch, caching, 동기화 및 업데이트에 대해 자세히 알 수 있는 시간이 되었으면 좋겠습니다.
-2. 직관적이고 가독성이 좋은 깔끔한 코드로 리팩토링
+<h1>최종 구현</h1>
+<hr>
+<h2>Auth</h2>
+![녹화_2022_08_19_22_45_33_172](https://user-images.githubusercontent.com/94844343/185634254-2d014d43-a608-4042-9e2e-968258ea2627.gif)
+<h2>To Do<h2>
+![녹화_2022_08_19_22_46_55_713](https://user-images.githubusercontent.com/94844343/185634276-492b3180-4a3f-4203-9e91-ec7de4bd9ecc.gif)
 
 <h1 dir="auto"><a id="user-content-1-2-클라이언트-구현-과제-안내" class="anchor" aria-hidden="true" href="#1-2-클라이언트-구현-과제-안내"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>과제 설명 </h1>
 <h2 dir="auto"><a id="user-content-assignment-1---login--signup" class="anchor" aria-hidden="true" href="#assignment-1---login--signup"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Assignment 1 - Login / SignUp</h2>
