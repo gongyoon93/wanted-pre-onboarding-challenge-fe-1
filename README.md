@@ -5,7 +5,7 @@
 <h2>To Do<h2>
 ![toDo](https://user-images.githubusercontent.com/94844343/185636905-e6b0a131-a479-4ede-9396-6e7277e159de.gif)
 
-## Assignment 1 - Login / SignUp
+## Assignment requirement 1 - Login / SignUp
 
 - /auth 경로에 로그인 / 회원가입 기능을 개발합니다
   - 로그인, 회원가입을 별도의 경로로 분리해도 무방합니다
@@ -19,7 +19,7 @@
   - [x] 다음 번에 로그인 시 토큰이 존재한다면 루트 경로로 리다이렉트 시켜주세요
   - [x] 어떤 경우든 토큰이 유효하지 않다면 사용자에게 알리고 로그인 페이지로 리다이렉트 시켜주세요
 
-## Assignment 2 - Todo List
+## Assignment requirement 2 - Todo List
 
 - Todo List API를 호출하여 Todo List CRUD 기능을 구현해주세요
   - [x] 목록 / 상세 영역으로 나누어 구현해주세요
