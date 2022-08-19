@@ -1,11 +1,8 @@
 <h1>최종 구현</h1>
 <h2>Auth</h2>
-![녹화_2022_08_19_22_45_33_172](https://user-images.githubusercontent.com/94844343/185635945-b377fdb0-a96b-4e20-b1c5-45891a772087.gif)
+![login](https://user-images.githubusercontent.com/94844343/185636891-7e4c50ef-85c2-4365-a5c3-2dc4e289aa3b.gif)
 
 <h2>To Do<h2>
-![녹화_2022_08_19_22_46_55_713](https://user-images.githubusercontent.com/94844343/185635953-6d9e1bdb-2f4c-4e24-9dcb-6c2b86256483.gif)
+![toDo](https://user-images.githubusercontent.com/94844343/185636905-e6b0a131-a479-4ede-9396-6e7277e159de.gif)
 
-
--ref
-https://github.com/starkoora/wanted-pre-onboarding-challenge-fe-1-api#assignment-1---login--signup
 
